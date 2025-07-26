@@ -23,3 +23,36 @@ def test_read_sheep():
         "breed": "Gotland",
         "sex": "ewe"
     }
+
+# Define a test function for adding a new sheep
+def test_add_sheep():
+    # TODO: Prepare the new sheep data in a dictionary format.
+    sheep_data_name = {
+        "id": 7,
+        "name": "Sheepy",
+        "breed": "Suffolk",
+        "sex": "ewe"
+    }
+
+    # TODO: Send a POST request to the endpoint "/sheep" with the new sheep data.
+    # Arguments should be your endpoint and new sheep data.
+    response = client.post("/sheep", json=sheep_data_name)
+
+    # TODO: Assert that the response status code is 201 (Created)
+    assert response.status_code == 201
+
+    # TODO: Assert that the response JSON matches the new sheep data
+    assert response.json() == {
+        # Expected JSON structure
+        "id": 7,
+        "name": "Sheepy",
+        "breed": "Suffolk",
+        "sex": "ewe"
+    }
+
+    # TODO: Verify that the sheep was actually added to the database by retrieving the new sheep by ID.
+    get_response = client.get(f"/sheep/7")
+
+    # include an assert statement to see if the new sheep data can be retrieved.
+    assert get_response.status_code == 200
+    assert get_response.json() == sheep_data_name
