@@ -8,6 +8,10 @@ app = FastAPI()
 def read_sheep(id: int):
     return db.get_sheep(id)
 
+@app.get("/sheep/", response_model=list[Sheep], status_code=status.HTTP_200_OK)
+def read_all_sheep():
+    return db.get_all_sheep()
+
 @app.post(path="/sheep/", response_model=Sheep, status_code=status.HTTP_201_CREATED)
 def add_sheep(sheep: Sheep):
     # Check if the sheep ID already exists to avoid duplicates
@@ -23,7 +27,7 @@ def delete_sheep(id: int):
     return db.delete_sheep(id=id)
 
 
-@app.put("/sheep/{id}", response_model=Sheep)
+@app.put("/sheep/{id}", response_model=Sheep, status_code=status.HTTP_200_OK)
 def update_sheep(id: int, sheep: Sheep):
     updated = db.update_sheep(id=id, sheep=sheep)
 

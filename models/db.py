@@ -8,8 +8,23 @@ class FakeDB:
     def get_sheep(self, id: int) -> Sheep:
         return self.data.get(id)
 
-    def delete_sheep(self, id: int):
-        return self.data.pop(id)
+    def get_all_sheep(self) -> list[Sheep]:
+        return list(self.data.values())
+
+    def add_sheep(self, sheep: Sheep) -> Sheep:
+        # Check if the sheep ID already exists
+        if sheep.id in self.data:
+            raise ValueError("Sheep with this ID already exists")
+        # Add the new sheep to the database
+        self.data[sheep.id] = sheep
+        return sheep
+
+    def delete_sheep(self, id: int) -> Sheep:
+        # Remove the sheep with the given ID
+        if id not in self.data:
+            raise ValueError(f"Sheep with ID: {id} does not exist")
+        removed = self.data.pop(id)
+        return removed
 
     def update_sheep(self, id: int, sheep: Sheep) -> Sheep:
         # Ensure the sheep exists before updating
@@ -28,18 +43,3 @@ db.data = {
     5: Sheep(id=5, name="Vala", breed="Valais Blacknose", sex="ewe"),
     6: Sheep(id=6, name="Esther", breed="Border Leicester", sex="ewe")
 }
-
-def add_sheep(self, sheep: Sheep) -> Sheep:
-    # Check if the sheep ID already exists
-    if sheep.id in self.data:
-        raise ValueError("Sheep with this ID already exists")
-    # Add the new sheep to the database
-    self.data[sheep.id] = sheep
-    return sheep
-
-def delete_sheep(self, id: int) -> Sheep:
-    # Remove the sheep with the given ID
-    if id not in self.data:
-        raise ValueError(f"Sheep with ID: {id} does not exist")
-    removed = self.data.pop(id)
-    return removed

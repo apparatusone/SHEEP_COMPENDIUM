@@ -11,10 +11,10 @@ client = TestClient(app)
 def test_read_sheep():
     # Send a GET request to the endpoint "/sheep/1"
     response = client.get("/sheep/1")
-    
+
     # Assert that the response status code is 200 (OK)
     assert response.status_code == 200
-    
+
     # Assert that the response JSON matches the expected data
     assert response.json() == {
         # Expected JSON structure
@@ -82,3 +82,20 @@ def test_update_sheep():
     # Assert that the response status code is 200 (OK)
     assert response.status_code == 200
     assert response.json() == sheep_data_name
+
+
+
+def test_read_all_sheep():
+    # Send a GET request to retrieve all sheep
+    response = client.get("/sheep/")
+    data = response.json()
+
+    assert response.status_code == 200
+
+    assert isinstance(data, list)
+
+    for item in data:
+        assert "id" in item
+        assert "name" in item
+        assert "breed" in item
+        assert "sex" in item
