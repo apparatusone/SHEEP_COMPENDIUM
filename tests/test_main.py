@@ -60,8 +60,25 @@ def test_add_sheep():
 
 # Define a test function for deleting a specific sheep
 def test_delete_sheep():
-    # Send a GET request to the endpoint "/sheep/1"
+    # Send a delete request to the endpoint "/sheep/1"
     response = client.delete("/sheep/1")
 
     # Assert that the response status code is 200 (OK)
     assert response.status_code == 204
+
+
+# Define a test function for updating a specific sheep
+def test_update_sheep():
+    sheep_data_name = {
+        "id": 1,
+        "name": "Sheepo",
+        "breed": "F1",
+        "sex": "ewe"
+    }
+
+    # Send a PUT request to the endpoint "/sheep/1"
+    response = client.put("/sheep/2", json=sheep_data_name)
+
+    # Assert that the response status code is 200 (OK)
+    assert response.status_code == 200
+    assert response.json() == sheep_data_name

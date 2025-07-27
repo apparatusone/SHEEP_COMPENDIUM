@@ -21,3 +21,10 @@ def add_sheep(sheep: Sheep):
 @app.delete(path="/sheep/{id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_sheep(id: int):
     return db.delete_sheep(id=id)
+
+
+@app.put("/sheep/{id}", response_model=Sheep)
+def update_sheep(id: int, sheep: Sheep):
+    updated = db.update_sheep(id=id, sheep=sheep)
+
+    return updated

@@ -11,6 +11,14 @@ class FakeDB:
     def delete_sheep(self, id: int):
         return self.data.pop(id)
 
+    def update_sheep(self, id: int, sheep: Sheep) -> Sheep:
+        # Ensure the sheep exists before updating
+        if id not in self.data:
+            raise ValueError(f"Sheep with ID {id} does not exist")
+        # Replace existing entry
+        self.data[id] = sheep
+        return sheep
+
 db = FakeDB()
 db.data = {
     1: Sheep(id=1, name="Spice", breed="Gotland", sex="ewe"),
