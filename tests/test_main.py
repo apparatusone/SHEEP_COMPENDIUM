@@ -56,3 +56,12 @@ def test_add_sheep():
     # include an assert statement to see if the new sheep data can be retrieved.
     assert get_response.status_code == 200
     assert get_response.json() == sheep_data_name
+
+
+# Define a test function for deleting a specific sheep
+def test_delete_sheep():
+    # Send a GET request to the endpoint "/sheep/1"
+    response = client.delete("/sheep/1")
+
+    # Assert that the response status code is 200 (OK)
+    assert response.status_code == 204

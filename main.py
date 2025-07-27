@@ -17,3 +17,7 @@ def add_sheep(sheep: Sheep):
     # Add the new sheep to the database
     db.data[sheep.id] = sheep
     return sheep  # Return the newly added sheep data
+
+@app.delete(path="/sheep/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_sheep(id: int):
+    return db.delete_sheep(id=id)
